@@ -1,0 +1,66 @@
+{% extends 'base.html'%}
+
+
+{% block head%}
+<title>Task List</title>
+{%endblock%}
+
+{%block body%}
+<div class="container">
+    <div class="container_form">
+         <div class="card">
+             <h1>Add a Note</h1>
+             <div class="note_form">
+
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{form.hidden_tag()}}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Add Task</legend>
+                        <div class="form-group">
+                            {{ form.content.label(class="form-control-label") }}
+                            
+                            {% if form.content.errors %}
+                                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.content.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                    {{ form.content(class="form-control form-control-lg") }}
+                                {% endif %}
+                        </div>
+        
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+             </div>
+         </div>
+    </div>
+    <hr>
+    <div class="container_Notes">
+        <!-- Crea una condicional usando la variable enviada desde flask -->
+        <h4>There are no tasks.Create one</h4>
+        <table>
+             <tr style="text-align: center;">
+                 <th>Note</th>
+                 <th>Modify</th>
+                 <th>Date</th>
+                 <th>Delete</th>
+             </tr>
+             <!-- Ciclo for para que recorrer todas las tasks  -->
+             {% for task in tasks %}
+             <tr>
+                 <td> {{task.note}} </td>
+                 <!-- Se usa el metodo get para enviar la id de la task -->
+                 <td><a href="/update/{{task.id}}">M</a></td>
+                 <td>{{task.date}}</td>
+                 <td><a href="/delete/{{task.id}}">X</a></td>
+             </tr>
+             {% endfor %}
+         </table>
+    </div>
+ </div>
+ 
+{%endblock%}

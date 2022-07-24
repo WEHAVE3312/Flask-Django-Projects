@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+
+
+{% block head%}
+<title>Task List</title>
+{%endblock%}
+
+{%block body%}
+<div class="container_form">
+    <div class="card">
+        <h1>UpdateNote</h1>
+        <!-- Se llama a la funcion de flask con la task id Metodo GET -->
+        <div class="note_form">
+            <form id="form_notes" method="post" action="/update/{{task.id}}" action="">
+                <input type="text" name="input_note" value="{{task.note}}">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+ 
+{%endblock%}
